@@ -6,6 +6,20 @@ export default function Home() {
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
            HOME PAGE
           </h1>
+          <div style={{
+          width: "100%",
+          height: 0,
+          paddingBottom: "178%",
+          position: "relative",
+          }}>
+            <iframe 
+            src="https://giphy.com/embed/SkzbKoAtrK7rJqJSf0" 
+            width="100%" height="100%" 
+            style={{ position: "absolute" }}
+              frameBorder="0" 
+              className="giphy-embed" 
+              allowFullScreen></iframe>
+              </div><p><a href="https://giphy.com/gifs/idxsolana-crypto-penguin-up-SkzbKoAtrK7rJqJSf0">via GIPHY</a></p>
         </div>
         <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
         </div>
