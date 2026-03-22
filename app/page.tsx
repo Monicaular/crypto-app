@@ -1,28 +1,16 @@
-export default function Home() {
+import { HomeSubnav } from "./components/home/HomeSubnav";
+
+export default function Home(){
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div className="flex min-h-screen flex-col bg-zinc-50 font-sans box-border dark:bg-black">
+      <HomeSubnav />
+      <main className="flex min-h-screen w-full max-w-3xl  py-32 px-16 bg-white dark:bg-black sm:items-start">
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-           HOME PAGE
+            HOME PAGE
           </h1>
-          <div style={{
-          width: "100%",
-          height: 0,
-          paddingBottom: "178%",
-          position: "relative",
-          }}>
-            <iframe 
-            src="https://giphy.com/embed/SkzbKoAtrK7rJqJSf0" 
-            width="100%" height="100%" 
-            style={{ position: "absolute" }}
-              frameBorder="0" 
-              className="giphy-embed" 
-              allowFullScreen></iframe>
-              </div><p><a href="https://giphy.com/gifs/idxsolana-crypto-penguin-up-SkzbKoAtrK7rJqJSf0">via GIPHY</a></p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-        </div>
+        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row"></div>
       </main>
     </div>
   );
