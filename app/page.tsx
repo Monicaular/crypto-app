@@ -1,5 +1,5 @@
 import { HomeSubnav } from "./components/home/HomeSubnav";
-import Coins from "./components/coins/Coints";
+import Coins from "./components/coins/Coins";
 
 export default function Home(){
   return (
