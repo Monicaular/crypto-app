@@ -1,8 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
+import coinsReducer from "@/store/coinsSlice";
+import globalReducer from "@/store/globalSlice";
 
 export const makeStore = () => {
   return configureStore({
-    reducer: {},
+    reducer: {
+      coins: coinsReducer,
+      global: globalReducer,
+    },
   });
 };
 
