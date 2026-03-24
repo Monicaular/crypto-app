@@ -12,7 +12,6 @@ export default function Home(){
           </h1>
           <Coins />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row"></div>
       </main>
     </div>
   );

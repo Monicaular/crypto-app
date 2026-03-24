@@ -33,7 +33,7 @@ const coinsSlice = createSlice({
       })
       .addCase(fetchCoins.rejected, (state) => {
         state.loading = false;
-        state.error = "Faildes to load coins";
+        state.error = "Failed to load coins";
       });
   },
 });
