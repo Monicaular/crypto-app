@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import "./globals.css";
+import StoreProvider from "./StoreProvider";
+import { Navbar } from "./components/navbar/Navbar";
 
 export const metadata: Metadata = {
   title: "TradeFlux",
@@ -12,16 +13,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
-      <body
-      >
-       <div>
-        <Link href="/">Home</Link>
-        <Link href="/portfolio">Portfolio</Link>
-        <Link href="/converter">Portfolio</Link>
-       </div>
+      <body>
+        <StoreProvider>
+          <Navbar />
+          
         {children}
+        </StoreProvider>
       </body>
     </html>
   );
