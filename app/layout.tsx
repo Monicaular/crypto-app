@@ -14,13 +14,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body>
         <StoreProvider>
           <GlobalBar />
           <Navbar />
- 
+          
         {children}
         </StoreProvider>
       </body>
