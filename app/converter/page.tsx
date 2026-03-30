@@ -3,7 +3,7 @@ import { HomeSubnav } from "../components/home/HomeSubnav";
 export default function Converter() {
   return (
     <div className="flex min-h-screen flex-col box-border bg-zinc-50 font-sans dark:bg-black">
-      <HomeSubnav />
+   <HomeSubnav />
       <main className="flex min-h-screen w-full max-w-3xl  items-center py-32 px-16 bg-white dark:bg-black sm:items-start">
         
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
