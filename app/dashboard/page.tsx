@@ -1,3 +1,4 @@
+"use client";
 import { HomeSubnav } from "../components/home/HomeSubnav";
 import Coins from "../components/coins/Coins";
 
