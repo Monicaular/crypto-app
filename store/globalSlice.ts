@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getGlobalData } from "@/utils/getGlobalData";
 import { GlobalDataType } from "@/types/globalDataType";
 
-export const fetchGlobalData = createAsyncThunk("global/fetchGlobalData", async () => {
+export const fetchGlobalData = createAsyncThunk<GlobalDataType, void>("global/fetchGlobalData", async () => {
   return await getGlobalData();
 });
 
@@ -31,9 +31,9 @@ const globalSlice = createSlice({
         state.loading = false;
         state.data = action.payload;
       })
-      .addCase(fetchGlobalData.rejected, (state) => {
+      .addCase(fetchGlobalData.rejected, (state, action) => {
         state.loading = false;
-        state.error = "Faildes to load coins";
+        state.error = action.error.message || "Failed to load coins";
       });
   },
 });

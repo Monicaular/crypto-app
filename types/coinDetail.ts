@@ -8,7 +8,7 @@ export interface CoinDetailType {
         large: string;
     };
     links: {
-        homepage: string;
+        homepage: string[];
         blockchain_site: string[];
         official_forum_url: string[];
         subreddit_url: string;

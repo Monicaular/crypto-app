@@ -11,13 +11,24 @@ export default async function Coin({ params }: { params: Promise<{coinId: string
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
             {coin.name} ({coin.symbol.toUpperCase()})
           </h1>
-          <Image src={coin.image.large} alt={coin.name} width={20} height={20}/>
+          <Image src={coin.image.small} alt={coin.name} width={64} height={64}/>
           <div>{coin.description.en}</div>
           <h3>Links: </h3>
-          <div>{coin.links.homepage}</div>
-          <div className="flex flex-col">{coin.links.blockchain_site.map((link) => (
+          <div className="flex flex-col gap-2">
+          {coin.links.homepage.filter((link) => link).map((link, index) => (
+            <a
+            key={index}
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer">
+              {link}
+            </a>
+          ))}
+          </div>
+
+          <div className="flex flex-col">{coin.links.blockchain_site.map((link, index) => (
             <a 
-            key={link}
+            key={index}
             href={link}
             target="_blank"
             rel="noopener noreferrer"
