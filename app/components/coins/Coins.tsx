@@ -2,8 +2,11 @@
 
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
-import { fetchCoins } from "@/store/coinsSlice";
+
 import Image from "next/image";
+import Link from "next/link";
+
+import { fetchCoins } from "@/store/coinsSlice";
 import { CoinType } from "@/types/coin";
 
 export default function Coins() {
@@ -20,11 +23,14 @@ export default function Coins() {
     return (
        <div className="flex flex-col gap-4">
         {coins.map((coin: CoinType) => (
+            <Link href={`/coins/${coin.id}`} key={coin.id}>
+            
             <div key={coin.id} className="flex items-center gap-4">
                 <Image src={coin.image} alt={coin.name} width={32} height={32}/>
                 <span>{coin.name}</span>
                 <span>${coin.current_price}</span>
             </div>
+            </Link>
         ))}
        </div>
     );
