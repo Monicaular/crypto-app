@@ -30,6 +30,7 @@ export default function GlobalMarketBar() {
     }, [dispatch]);
 
     if (loading) return <p>Loading...</p>;
+    if (!data) return null;
 
     return (
        <div className="w-full flex items-center justify-center gap-10 px-6 py-3 bg-[#1f1933] text-sm" >
