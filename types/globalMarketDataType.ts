@@ -1,4 +1,4 @@
-export interface GlobalDataType {
+export interface GlobalMarketDataType {
     active_cryptocurrencies: number;
     markets: number;
     total_market_cap: {

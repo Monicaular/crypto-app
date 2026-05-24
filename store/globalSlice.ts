@@ -1,18 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getGlobalData } from "@/utils/getGlobalData";
-import { GlobalDataType } from "@/types/globalDataType";
+import { getGlobalMarketData } from "@/utils/getGlobalMarketData";
+import { GlobalMarketDataType } from "@/types/globalMarketDataType";
 
-export const fetchGlobalData = createAsyncThunk<GlobalDataType, void>("global/fetchGlobalData", async () => {
-  return await getGlobalData();
+export const fetchGlobalData = createAsyncThunk<GlobalMarketDataType, void>("global/fetchGlobalData", async () => {
+  return await getGlobalMarketData();
 });
 
-interface GlobalState {
-  data: GlobalDataType | null;
+interface GlobalMarketState {
+  data: GlobalMarketDataType | null;
   loading: boolean;
   error: string | null;
 }
 
-const initialState: GlobalState = {
+const initialState: GlobalMarketState = {
   data: null,
   loading: false,
   error: null,
