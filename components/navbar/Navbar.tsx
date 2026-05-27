@@ -1,3 +1,4 @@
+import CurrencySelector from "../global/CurrencySelector";
 import { Logo } from "./Logo";
 import { Navlinks } from "./Navlinks";
 import { SearchBar } from "./SearchBar";
@@ -8,6 +9,7 @@ export const Navbar = () => {
             <Logo />
             <Navlinks />
             <SearchBar />
+            <CurrencySelector />
         </nav>
     );
 };

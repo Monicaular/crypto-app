@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CoinType } from "@/types/coin";
+import { formatNumber } from "@/utils/formatNumber";
 
 interface Props {
   coins: CoinType[];
@@ -74,13 +75,13 @@ export default function CoinsTable({ coins }: Props) {
               {coin.price_change_percentage_7d_in_currency?.toFixed(2)}%
             </td>
             {/* Volume */}
-            <td>{coin.total_volume.toLocaleString()}</td>
+            <td>{formatNumber(coin.total_volume)}</td>
             {/* Market Cap */}
-            <td>{coin.market_cap.toLocaleString()}</td>
+            <td>{formatNumber(coin.market_cap)}</td>
             {/* Supply */}
             <td>
-              {coin.circulating_supply.toLocaleString()}/{" "}
-              {coin.total_supply?.toLocaleString() ?? "-"}
+              {formatNumber(coin.circulating_supply)}/{" "}
+              {formatNumber(coin.total_supply)}
             </td>
             {/* Sparkline placeholder */}
             <td className="text-zinc-500 text-sm">Coming soon</td>

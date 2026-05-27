@@ -1,12 +1,14 @@
-"use client";
-import Coins from "@/components/coins/Coins";
 import { HomeSubnav } from "@/components/navbar/HomeSubnav";
 
-export default function Home() {
+export default async function CoinsLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <div>
       <HomeSubnav />
-      <Coins />
+      {children}
     </div>
   );
 }

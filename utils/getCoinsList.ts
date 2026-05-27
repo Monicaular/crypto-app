@@ -1,10 +1,10 @@
 import { axiosClient } from "./axiosClient";
 import { CoinType } from "../types/coin";
 
-export async function getCoinsList(): Promise<CoinType[]> {
+export async function getCoinsList(currency: string): Promise<CoinType[]> {
     /* eslint-disable camelcase */
   const params = {
-    vs_currency: "usd",
+    vs_currency: currency,
     order: "market_cap_desc",
     per_page: 100,
     page: 1,
