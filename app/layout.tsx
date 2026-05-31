@@ -2,8 +2,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 import StoreProvider from "./StoreProvider";
-import { Navbar } from "./components/navbar/Navbar";
-import GlobalMarketBar from "./components/global/GlobalMarketBar";
+import { Navbar } from "@/components/navbar/Navbar";
+import GlobalMarketBar from "@/components/global/GlobalMarketBar";
 
 export const metadata: Metadata = {
   title: "TradeFlux",
@@ -21,8 +21,7 @@ export default function RootLayout({
       <body>
         <StoreProvider>
           <GlobalMarketBar />
-          <Navbar />
-          
+          <Navbar />         
         {children}
         </StoreProvider>
       </body>

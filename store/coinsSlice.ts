@@ -1,9 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getCoinsList } from "@/utils/getCoinsList";
 import { CoinType } from "@/types/coin";
+import type { RootState } from "@/state/store";
 
-export const fetchCoins = createAsyncThunk("coins/fetchCoins", async () => {
-  return await getCoinsList();
+export const fetchCoins = createAsyncThunk("coins/fetchCoins", async (_, { getState }) => {
+  const state = getState() as RootState;
+  const currency = state.global.currency;
+  return await getCoinsList(currency);
 });
 
 interface CoinsState {
@@ -21,7 +24,9 @@ const initialState: CoinsState = {
 const coinsSlice = createSlice({
   name: "coins",
   initialState,
-  reducers: {},
+  reducers: {
+    
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCoins.pending, (state) => {
@@ -37,4 +42,5 @@ const coinsSlice = createSlice({
       });
   },
 });
+
  export default coinsSlice.reducer;

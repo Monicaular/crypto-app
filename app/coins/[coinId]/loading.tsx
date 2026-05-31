@@ -1,4 +1,4 @@
-import LoadingSkeleton from "@/app/components/global/LoadingSkeleton";
+import LoadingSkeleton from "@/components/global/LoadingSkeleton";
 
 export default function Loading() {
     return <LoadingSkeleton />;
