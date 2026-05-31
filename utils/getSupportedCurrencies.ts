@@ -25,6 +25,7 @@ export async function getSupportedCurrencies(): Promise<SupportedCurrencies> {
     "nzd",
     "sgd",
     "zar",
+    "ron",
     "inr",
     "brl",
     "mxn",

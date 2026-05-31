@@ -5,12 +5,16 @@ import Link from "next/link";
 
 import { CoinType } from "@/types/coin";
 import { formatNumber } from "@/utils/formatNumber";
+import { currencySymbols } from "@/utils/currencySymbols";
+import { useAppSelector } from "@/state/hooks";
 
 interface Props {
   coins: CoinType[];
 }
 
 export default function CoinsTable({ coins }: Props) {
+  const currency = useAppSelector((state) => state.global.currency);
+  const symbol = currencySymbols[currency] || "";
   return (
     <table className="w-full text-left border-collapse">
       <thead>
@@ -40,7 +44,7 @@ export default function CoinsTable({ coins }: Props) {
               </Link>
             </td>
             {/* Price */}
-            <td>${coin.current_price.toLocaleString()}</td>
+            <td>{symbol} {coin.current_price.toLocaleString()}</td>
             {/* 1h% */}
             <td
               className={
