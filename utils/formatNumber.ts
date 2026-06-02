@@ -1,4 +1,4 @@
 export function formatNumber(value: number | null | undefined) {
-    if (value === null || value === undefined) return "-";
-    return value.toLocaleString();
+  if (value === null || value === undefined) return "-";
+  return value.toLocaleString();
 }

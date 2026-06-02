@@ -14,7 +14,7 @@ export const fetchFiatCurrencies = createAsyncThunk(
   "global/fetchFiatCurrencies",
   async () => {
     return await getSupportedCurrencies();
-  }
+  },
 );
 
 interface GlobalMarketState {
