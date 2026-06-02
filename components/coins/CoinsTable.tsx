@@ -44,7 +44,9 @@ export default function CoinsTable({ coins }: Props) {
               </Link>
             </td>
             {/* Price */}
-            <td>{symbol} {coin.current_price.toLocaleString()}</td>
+            <td>
+              {symbol} {coin.current_price.toLocaleString()}
+            </td>
             {/* 1h% */}
             <td
               className={
