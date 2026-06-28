@@ -31,9 +31,8 @@ export default function CoinsTable({ coins }: Props) {
           <th>1h%</th>
           <th>24h%</th>
           <th>7d%</th>
-          <th>24h Volume</th>
-          <th>Market Cap</th>
-          <th>Circulating/Total</th>
+          <th>24h Volume/Market Cap</th>
+          <th>Circulating/Total Supply</th>
           <th>Last 7d</th>
         </tr>
       </thead>
