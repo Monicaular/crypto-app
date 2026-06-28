@@ -9,21 +9,9 @@ import {
 
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { fetchGlobalData } from "@/store/globalSlice";
+import { formatNumber } from "@/utils/formatNumber";
+import { formatPercent } from "@/utils/formatPercent";
 import Image from "next/image";
-
-function formatNumber(num?: number | null) {
-  if (num == null) return "-";
-  if (num >= 1_000_000_000_000)
-    return (num / 1_000_000_000_000).toFixed(2) + "T";
-  if (num >= 1_000_000_000) return (num / 1_000_000_000).toFixed(2) + "B";
-  if (num >= 1_000_000) return (num / 1_000_000).toFixed(2) + "M";
-  return num.toLocaleString();
-}
-
-function formatPercent(num?: number | null) {
-  if (num == null) return "-";
-  return num.toFixed(0) + "%";
-}
 
 export default function GlobalMarketBar() {
   const dispatch = useAppDispatch();

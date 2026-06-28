@@ -2,11 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Progress } from "@/components/ui/progress";
 
 import { CoinType } from "@/types/coin";
 import { formatNumber } from "@/utils/formatNumber";
 import { currencySymbols } from "@/utils/currencySymbols";
 import { useAppSelector } from "@/state/hooks";
+import { calculateCryptoMetrics } from "@/utils/calculateCryptoMetrics";
+import {
+  randomBgColors,
+  randomTrackColors,
+  randomTextColors,
+} from "@/utils/coinRowColors";
 
 interface Props {
   coins: CoinType[];
@@ -31,68 +38,103 @@ export default function CoinsTable({ coins }: Props) {
         </tr>
       </thead>
       <tbody>
-        {coins.map((coin) => (
-          <tr
-            key={coin.id}
-            className="border-b border-zinc-800 hover:bg-zinc-900 transition"
-          >
-            {/* Coin */}
-            <td className="py-3 flex items-center gap-2">
-              <Image src={coin.image} alt={coin.name} width={24} height={24} />
-              <Link href={`/coins/${coin.id}`} className="hover:underline">
-                {coin.name}
-              </Link>
-            </td>
-            {/* Price */}
-            <td>
-              {symbol} {coin.current_price.toLocaleString()}
-            </td>
-            {/* 1h% */}
-            <td
-              className={
-                coin.price_change_percentage_1h_in_currency !== null &&
-                coin.price_change_percentage_1h_in_currency > 0
-                  ? "text-green-500"
-                  : "text-red-500"
-              }
+        {coins.map((coin, index) => {
+          const { volumePercentage, supplyPercentage } =
+            calculateCryptoMetrics(coin);
+          const activeRowColor = randomBgColors[index % randomBgColors.length];
+          const activeTrackColor =
+            randomTrackColors[index % randomTrackColors.length];
+          const activeTextColor =
+            randomTextColors[index % randomTextColors.length];
+          return (
+            <tr
+              key={coin.id}
+              className="border-b border-zinc-800 hover:bg-zinc-900 transition"
             >
-              {coin.price_change_percentage_1h_in_currency?.toFixed(2)}%
-            </td>
-            {/* 24h % */}
-            <td
-              className={
-                coin.price_change_percentage_24h_in_currency !== null &&
-                coin.price_change_percentage_24h_in_currency > 0
-                  ? "text-green-500"
-                  : "text-red-500"
-              }
-            >
-              {coin.price_change_percentage_24h_in_currency?.toFixed(2)}%
-            </td>
-            {/* 7d% */}
-            <td
-              className={
-                coin.price_change_percentage_7d_in_currency !== null &&
-                coin.price_change_percentage_7d_in_currency > 0
-                  ? "text-green-500"
-                  : "text-red-500"
-              }
-            >
-              {coin.price_change_percentage_7d_in_currency?.toFixed(2)}%
-            </td>
-            {/* Volume */}
-            <td>{formatNumber(coin.total_volume)}</td>
-            {/* Market Cap */}
-            <td>{formatNumber(coin.market_cap)}</td>
-            {/* Supply */}
-            <td>
-              {formatNumber(coin.circulating_supply)}/{" "}
-              {formatNumber(coin.total_supply)}
-            </td>
-            {/* Sparkline placeholder */}
-            <td className="text-zinc-500 text-sm">Coming soon</td>
-          </tr>
-        ))}
+              {/* Coin */}
+              <td className="py-3 flex items-center gap-2">
+                <Image
+                  src={coin.image}
+                  alt={coin.name}
+                  width={24}
+                  height={24}
+                />
+                <Link href={`/coins/${coin.id}`} className="hover:underline">
+                  {coin.name}
+                </Link>
+              </td>
+              {/* Price */}
+              <td>
+                {symbol} {coin.current_price.toLocaleString()}
+              </td>
+              {/* 1h% */}
+              <td
+                className={
+                  coin.price_change_percentage_1h_in_currency !== null &&
+                  coin.price_change_percentage_1h_in_currency > 0
+                    ? "text-green-500"
+                    : "text-red-500"
+                }
+              >
+                {coin.price_change_percentage_1h_in_currency?.toFixed(2)}%
+              </td>
+              {/* 24h % */}
+              <td
+                className={
+                  coin.price_change_percentage_24h_in_currency !== null &&
+                  coin.price_change_percentage_24h_in_currency > 0
+                    ? "text-green-500"
+                    : "text-red-500"
+                }
+              >
+                {coin.price_change_percentage_24h_in_currency?.toFixed(2)}%
+              </td>
+              {/* 7d% */}
+              <td
+                className={
+                  coin.price_change_percentage_7d_in_currency !== null &&
+                  coin.price_change_percentage_7d_in_currency > 0
+                    ? "text-green-500"
+                    : "text-red-500"
+                }
+              >
+                {coin.price_change_percentage_7d_in_currency?.toFixed(2)}%
+              </td>
+              {/* Volume/Market Cap*/}
+              <td className="py-3 pr-4">
+                <div className="flex justify-between text-xs mb-1">
+                  <span className={activeTextColor}>
+                    {formatNumber(coin.total_volume)}
+                  </span>
+                  <span className="text-zinc-400">
+                    {formatNumber(coin.market_cap)}
+                  </span>
+                </div>
+                <Progress
+                  value={volumePercentage}
+                  className={`h-1.5 ${activeTrackColor} ${activeRowColor}`}
+                />
+              </td>
+              {/* Supply/Total Supply */}
+              <td className="py-3 pr-4">
+                <div className="flex justify-between text-xs mb-1">
+                  <span className={activeTextColor}>
+                    {formatNumber(coin.circulating_supply)}
+                  </span>
+                  <span className="text-zinc-400">
+                    {formatNumber(coin.total_supply)}
+                  </span>
+                </div>
+                <Progress
+                  value={supplyPercentage}
+                  className={`h-1.5 ${activeTrackColor} ${activeRowColor}`}
+                />
+              </td>
+              {/* Sparkline placeholder */}
+              <td className="text-zinc-500 text-sm">Coming soon</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
