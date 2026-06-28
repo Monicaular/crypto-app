@@ -2,7 +2,5 @@
 import Coins from "@/components/coins/Coins";
 
 export default function CoinsPage() {
-  return (
-  <Coins />
-  );
+  return <Coins />;
 }

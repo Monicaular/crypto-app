@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import {
   fetchGlobalData,
   setCurrency,
-  fetchFiatCurrencies
+  fetchFiatCurrencies,
 } from "@/store/globalSlice";
 import { fetchCoins } from "@/store/coinsSlice";
 
@@ -20,7 +20,7 @@ export default function CurrencySelector() {
   const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-      dispatch(fetchFiatCurrencies());
+    dispatch(fetchFiatCurrencies());
   }, [dispatch]);
 
   useEffect(() => {
@@ -38,10 +38,9 @@ export default function CurrencySelector() {
     const newSearch = search + char;
     setSearch(newSearch);
 
-    const match = currencies.find((c) => c.startsWith(newSearch));
-    if (!match) return;
+    const index = currencies.findIndex((c) => c.startsWith(newSearch));
+    if (index < 0) return;
 
-    const index = currencies.indexOf(match);
     const item = listRef.current?.children[index] as HTMLElement;
 
     item?.scrollIntoView({ block: "nearest" });
@@ -50,7 +49,7 @@ export default function CurrencySelector() {
   const handleSelect = (cur: string) => {
     dispatch(setCurrency(cur));
     dispatch(fetchGlobalData());
-    dispatch(fetchCoins()); 
+    dispatch(fetchCoins());
     setOpen(false);
   };
 
@@ -64,21 +63,20 @@ export default function CurrencySelector() {
       </button>
       {open && (
         <div
-        ref={listRef}
-        className="mt-2 bg-[#2a2340] rounded shadow-lg p-2 flex flex-col text-sm max-h-40 overflow-y-auto z-50"
+          ref={listRef}
+          className="mt-2 bg-[#2a2340] rounded shadow-lg p-2 flex flex-col text-sm max-h-40 overflow-y-auto z-50"
         >
-            {currencies.map((cur) => (
-        <button
-          key={cur}
-          onClick={() => handleSelect(cur)}
-          className="px-3 py-1 hover:bg-[#3a3250] rounded text-left"
-        >
-          {cur.toUpperCase()}
-        </button>
-      ))}
+          {currencies.map((cur) => (
+            <button
+              key={cur}
+              onClick={() => handleSelect(cur)}
+              className="px-3 py-1 hover:bg-[#3a3250] rounded text-left"
+            >
+              {cur.toUpperCase()}
+            </button>
+          ))}
         </div>
       )}
-      
     </div>
   );
 }
