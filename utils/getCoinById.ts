@@ -8,7 +8,7 @@ export async function getCoinById(coinId: string): Promise<CoinDetailType> {
     market_data: true,
     community_data: false,
     developer_data: false,
-    sparkline: false,
+    sparkline: true,
   };
   const response = await axiosClient.get(`/coins/${coinId}`, { params });
   return response.data;
