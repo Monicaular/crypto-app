@@ -14,6 +14,7 @@ import {
   randomTrackColors,
   randomTextColors,
 } from "@/utils/coinRowColors";
+import Sparkline from "./Sparkline";
 
 interface Props {
   coins: CoinType[];
@@ -22,6 +23,21 @@ interface Props {
 export default function CoinsTable({ coins }: Props) {
   const currency = useAppSelector((state) => state.global.currency);
   const symbol = currencySymbols[currency] || "";
+  const rowColorNames = [
+    "#10b981",
+    "#6366f1",
+    "#06b6d4",
+    "#f59e0b",
+    "#f43f5e",
+    "#0ea5e9",
+    "#8b5cf6",
+    "#d946ef",
+    "#f97316",
+    "#ec4899",
+    "#14b8a6",
+    "#eab308",
+  ];
+
   return (
     <table className="w-full text-left border-collapse">
       <thead>
@@ -31,9 +47,8 @@ export default function CoinsTable({ coins }: Props) {
           <th>1h%</th>
           <th>24h%</th>
           <th>7d%</th>
-          <th>24h Volume</th>
-          <th>Market Cap</th>
-          <th>Circulating/Total</th>
+          <th>24h Volume/Market Cap</th>
+          <th>Circulating/Total Supply</th>
           <th>Last 7d</th>
         </tr>
       </thead>
@@ -46,6 +61,8 @@ export default function CoinsTable({ coins }: Props) {
             randomTrackColors[index % randomTrackColors.length];
           const activeTextColor =
             randomTextColors[index % randomTextColors.length];
+          const currentColorName = rowColorNames[index % rowColorNames.length];
+          const pricesArray = coin.sparkline_in_7d?.price;
           return (
             <tr
               key={coin.id}
@@ -131,7 +148,9 @@ export default function CoinsTable({ coins }: Props) {
                 />
               </td>
               {/* Sparkline placeholder */}
-              <td className="text-zinc-500 text-sm">Coming soon</td>
+              <td className="text-zinc-500 text-sm">
+                <Sparkline prices={pricesArray} baseColor={currentColorName} />
+              </td>
             </tr>
           );
         })}
