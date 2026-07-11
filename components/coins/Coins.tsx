@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/state/hooks";
 
 import { fetchCoins } from "@/store/coinsSlice";
 import CoinsTable from "./CoinsTable";
+import MarketLeadersCarousel from "./MarketLeadersCarousel";
 
 export default function Coins() {
   const dispatch = useAppDispatch();
@@ -19,6 +20,7 @@ export default function Coins() {
 
   return (
     <div className="p-4">
+      <MarketLeadersCarousel coins={coins}/>
       <CoinsTable coins={coins} />
     </div>
   );
