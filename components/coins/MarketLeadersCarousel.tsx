@@ -25,7 +25,10 @@ export default function MarketLeadersCarousel({ coins }: MarketLeadersProps) {
 
   return (
     <div className="w-full mb-8 relative">
-      <Carousel opts={{ align: "start", loop: true, dragFree: true }} className="w-full">
+      <Carousel
+        opts={{ align: "start", loop: true, dragFree: true }}
+        className="w-full"
+      >
         <CarouselContent className="-ml-3">
           {coins.map((coin) => {
             const change24h = coin.price_change_percentage_24h_in_currency ?? 0;
@@ -37,7 +40,7 @@ export default function MarketLeadersCarousel({ coins }: MarketLeadersProps) {
                 className="basis-full sm:basis-1/3 lg:basis-1/6 pl-3"
               >
                 <div className="bg-[#241e38] flex items-center p-3 gap-3 border border-zinc-800 rounded-xl">
-                  <div className="relative w-8 h-8 flex-shrink-0">
+                  <div className="relative w-8 h-8 shrink-0">
                     <Image
                       src={coin.image}
                       alt={coin.name}

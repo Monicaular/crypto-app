@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import coinsReducer from "@/store/coinsSlice";
 import globalReducer from "@/store/globalSlice";
+import chartReducer from "@/store/chartSlice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       coins: coinsReducer,
       global: globalReducer,
+      chart: chartReducer,
     },
   });
 };
