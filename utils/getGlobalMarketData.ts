@@ -1,10 +1,8 @@
-import { axiosClient } from "./axiosClient";
+import axios from "axios";
 import { GlobalMarketDataType } from "@/types/globalMarketDataType";
 
 export async function getGlobalMarketData(): Promise<GlobalMarketDataType> {
-  const response = await axiosClient.get<{ data: GlobalMarketDataType }>(
-    "/global",
-  );
+  const res = await axios.get<GlobalMarketDataType>("/api/global");
 
-  return response.data.data;
+  return res.data;
 }

@@ -1,9 +1,9 @@
-import { axiosClient } from "./axiosClient";
+import axios from "axios";
 import { SupportedCurrencies } from "@/types/supportedCurrencies";
 
 export async function getSupportedCurrencies(): Promise<SupportedCurrencies> {
-  const response = await axiosClient.get<SupportedCurrencies>(
-    "/simple/supported_vs_currencies",
+  const response = await axios.get<SupportedCurrencies>(
+    "/api/supported_vs_currencies",
   );
 
   const fiatOnly = response.data.filter((cur) =>

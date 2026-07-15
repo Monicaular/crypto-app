@@ -1,30 +1,32 @@
 import { axiosClient } from "./axiosClient";
 
-function convertRangeToDays(range: string) {
+function convertRange(range: string) {
   switch (range) {
     case "1d":
-      return 1;
+      return { days: 1, label: "1D" };
     case "7d":
-      return 7;
+      return { days: 7, label: "7D" };
     case "14d":
-      return 14;
+      return { days: 14, label: "14D" };
     case "1m":
-      return 30;
+      return { days: 30, label: "1M" };
     case "3m":
-      return 90;
+      return { days: 90, label: "3M" };
     case "1y":
-      return 365;
+      return { days: 365, label: "1Y" };
     default:
-      return 1;
+      return { days: 1, label: "1D" };
   }
 }
 
-export async function getHistoricalData(coinId: string, range: string) {
-  const response = await axiosClient.get(`/coins/${coinId}/market_chart`, {
-    params: {
-      vs_currency: "usd",
-      days: convertRangeToDays(range),
-    },
+export async function getHistoricalData(
+  coinId: string,
+  range: string,
+  currency: string,
+) {
+  const { days, label } = convertRange(range);
+  const response = await axiosClient.get("api/chart", {
+    params: { coinId, range, currency },
   });
 
   const prices = response.data.prices.map((p: [number, number]) => p[1]);
@@ -33,5 +35,5 @@ export async function getHistoricalData(coinId: string, range: string) {
     (v: [number, number]) => v[1],
   );
 
-  return { prices, timestamps, volumes };
+  return { prices, timestamps, volumes, range, days, label };
 }
