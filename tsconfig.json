@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-  ],
+, "components/converter/Converter.tsx"  ],
   "exclude": ["node_modules"]
 }
