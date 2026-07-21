@@ -50,7 +50,7 @@ export default function MarketLeadersCarousel({ coins }: MarketLeadersProps) {
                   </div>
                   <div className="flex-1 min-w-0 flex flex-col gap-1">
                     <div className="flex w-full overflow-hidden">
-                      <h3 className="font-semibold truncate group-hover:text-zinc-200 leading-tight">
+                      <h3 className="font-semibold truncate text-white group-hover:text-zinc-200 leading-tight">
                         {coin.name}{" "}
                         <span className="uppercase">({coin.symbol})</span>
                       </h3>
