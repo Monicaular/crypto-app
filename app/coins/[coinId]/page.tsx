@@ -1,11 +1,11 @@
 import { getCoinById } from "@/utils/getCoinById";
 import Image from "next/image";
 
-export default async function Coin({
-  params,
-}: {
+interface PageProps {
   params: Promise<{ coinId: string }>;
-}) {
+}
+
+export default async function Coin({ params }: PageProps) {
   const { coinId } = await params;
   const coin = await getCoinById(coinId);
   return (
@@ -25,10 +25,10 @@ export default async function Coin({
           <h3>Links: </h3>
           <div className="flex flex-col gap-2">
             {coin.links.homepage
-              .filter((link) => link)
-              .map((link, index) => (
+              .filter((link: string) => link)
+              .map((link: string) => (
                 <a
-                  key={index}
+                  key={link}
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -39,7 +39,7 @@ export default async function Coin({
           </div>
 
           <div className="flex flex-col">
-            {coin.links.blockchain_site.map((link, index) => (
+            {coin.links.blockchain_site.map((link: string, index: number) => (
               <a
                 key={index}
                 href={link}

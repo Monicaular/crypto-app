@@ -4,6 +4,7 @@ import { getHistoricalData } from "@/utils/getHistoricalData";
 interface ChartParams {
   coinId: string;
   range: string;
+  currency: string;
 }
 
 interface ChartState {
@@ -12,6 +13,8 @@ interface ChartState {
   priceData: number[];
   volumeData: number[];
   timestamps: number[];
+  days: number;
+  label: string;
   loading: boolean;
   error: string | null;
 }
@@ -22,14 +25,16 @@ const initialState: ChartState = {
   priceData: [],
   volumeData: [],
   timestamps: [],
+  days: 1,
+  label: "1D",
   loading: false,
   error: null,
 };
 
 export const fetchChartData = createAsyncThunk(
   "chart/fetchChartData",
-  async ({ coinId, range }: ChartParams) => {
-    return await getHistoricalData(coinId, range);
+  async ({ coinId, range, currency }: ChartParams) => {
+    return await getHistoricalData(coinId, range, currency);
   },
 );
 
@@ -55,6 +60,9 @@ const chartSlice = createSlice({
         state.priceData = action.payload.prices;
         state.volumeData = action.payload.volumes;
         state.timestamps = action.payload.timestamps;
+        state.range = action.payload.range;
+        state.days = action.payload.days;
+        state.label = action.payload.label;
       })
       .addCase(fetchChartData.rejected, (state, action) => {
         state.loading = false;
