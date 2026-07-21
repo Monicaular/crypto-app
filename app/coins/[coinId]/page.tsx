@@ -26,9 +26,9 @@ export default async function Coin({ params }: PageProps) {
           <div className="flex flex-col gap-2">
             {coin.links.homepage
               .filter((link: string) => link)
-              .map((link: string, index: number) => (
+              .map((link: string) => (
                 <a
-                  key={index}
+                  key={link}
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
