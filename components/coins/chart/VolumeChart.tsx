@@ -3,19 +3,20 @@
 import { useAppSelector } from "@/state/hooks";
 import ChartBase from "./ChartBase";
 
-type VolumePoint = {
+export type VolumePoint = {
   time: string;
-  volume: number;
+  [coinId: string]: string | number;
 };
 
 export default function VolumeChart() {
-  const { volumeData, timestamps, loading, coinId } = useAppSelector(
+  const { selectedCoins, coinsData, isCompareMode, loading } = useAppSelector(
     (state) => state.chart,
   );
 
   const { coins } = useAppSelector((state) => state.coins);
-  const coin = coins.find((c) => c.id === coinId);
-  const currentVolume = coin?.total_volume;
+  const primaryCoinId = selectedCoins[0];
+  const secondaryCoinId = selectedCoins[1];
+  const primaryCoin = coins.find((c) => c.id === primaryCoinId);
 
   if (loading) {
     return (
@@ -25,23 +26,38 @@ export default function VolumeChart() {
     );
   }
 
-  const volumeDataFormatted: VolumePoint[] = timestamps.map((t, i) => ({
-    time: new Date(t).toLocaleTimeString([], {
+  const primaryData = coinsData[primaryCoinId];
+  if (!primaryData || !primaryData.timestamps) return null;
+
+  const volumeDataFormatted = primaryData.timestamps.map((t, i) => {
+    const timeLabel = new Date(t).toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
-    }),
-    volume: volumeData[i],
-  }));
+    });
+
+    const point: VolumePoint = { time: timeLabel };
+
+    selectedCoins.forEach((coinId) => {
+      const coinChart = coinsData[coinId];
+      if (coinChart && coinChart.volumes[i] !== undefined) {
+        point[coinId] = coinChart.volumes[i];
+      }
+    });
+    return point;
+  });
 
   return (
     <ChartBase<VolumePoint>
       data={volumeDataFormatted}
       type="bar"
-      color="#6366f1"
-      dataKey="volume"
+      color="#7c5ca8"
+      dataKey={primaryCoinId}
+      secondaryDataKey={isCompareMode ? secondaryCoinId : undefined}
+      secondaryColor="#c183be"
       gradientId="volumeGradient"
       title="Volume 24h"
-      value={currentVolume}
+      value={isCompareMode ? undefined : primaryCoin?.total_volume}
+      isCompareMode={isCompareMode}
     />
   );
 }
