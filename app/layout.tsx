@@ -17,12 +17,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" style={{ colorScheme: "dark" }}>
-      <body>
+      <body className="min-h-screen bg-[#110e1b] text-white antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
         <StoreProvider>
           <GlobalMarketBar />
           <ThemeProvider>
-            <Navbar />
+            <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 flex flex-col gap-6">
+               <Navbar />
             {children}
+            </main>
           </ThemeProvider>
         </StoreProvider>
       </body>
