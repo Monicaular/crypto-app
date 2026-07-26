@@ -31,7 +31,7 @@ export default function GlobalMarketBar() {
   const ethPercentage = data?.market_cap_percentage?.eth ?? 0;
 
   return (
-    <div className="w-full flex items-center justify-center gap-10 px-6 py-3 bg-[#1f1933] text-sm">
+    <div className="w-full flex items-center justify-center gap-10 px-6 py-3 bg-[#1f1933] text-white text-sm">
       <div className="flex gap-2 items-center">
         <FontAwesomeIcon icon={faCoins} />
         <span>Coins: {data?.active_cryptocurrencies}</span>
@@ -41,11 +41,12 @@ export default function GlobalMarketBar() {
         <span>Exchanges: {data?.markets}</span>
       </div>
       <div className="flex items-center gap-1.5">
-        
         {data?.market_cap_change_percentage_24h_usd !== undefined && (
           <div
             className={`flex items-center gap-1 text-xs font-medium ${
-              data.market_cap_change_percentage_24h_usd >= 0 ? "text-[#06b6d4]" : "text-[#f43f5e]"
+              data.market_cap_change_percentage_24h_usd >= 0
+                ? "text-[#06b6d4]"
+                : "text-[#f43f5e]"
             }
           }`}
           >

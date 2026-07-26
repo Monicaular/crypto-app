@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-
+import { ThemeProvider } from "@/components/global/ThemeProvider";
 import StoreProvider from "./StoreProvider";
 import { Navbar } from "@/components/navbar/Navbar";
 import GlobalMarketBar from "@/components/global/GlobalMarketBar";
@@ -20,8 +20,10 @@ export default function RootLayout({
       <body>
         <StoreProvider>
           <GlobalMarketBar />
-          <Navbar />
-          {children}
+          <ThemeProvider>
+            <Navbar />
+            {children}
+          </ThemeProvider>
         </StoreProvider>
       </body>
     </html>

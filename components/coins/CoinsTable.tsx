@@ -41,7 +41,7 @@ export default function CoinsTable({ coins }: Props) {
   return (
     <table className="w-full text-left border-collapse">
       <thead>
-        <tr className="border-b border-zinc-700 text-sm text-zinc-400">
+        <tr className="border-b dark:border-zinc-700 text-sm text-zinc-400 border-slate-400">
           <th className="py-2">Name</th>
           <th>Price</th>
           <th>1h%</th>
@@ -66,7 +66,7 @@ export default function CoinsTable({ coins }: Props) {
           return (
             <tr
               key={coin.id}
-              className="border-b border-zinc-800 hover:bg-zinc-900 transition"
+              className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-300 dark:hover:bg-zinc-800 transition"
             >
               {/* Coin */}
               <td className="py-3 flex items-center gap-2">
