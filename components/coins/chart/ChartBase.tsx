@@ -14,6 +14,7 @@ import {
 import { formatNumber } from "@/utils/formatNumber";
 import { useAppSelector } from "@/state/hooks";
 import { currencySymbols } from "@/utils/currencySymbols";
+import ChartTooltip from "./ChartTooltip";
 
 interface ChartBaseProps<T extends Record<string, unknown>> {
   data: T[];
@@ -59,7 +60,7 @@ export default function ChartBase<T extends Record<string, unknown>>({
   });
 
   return (
-    <div className="relative w-full h-72 bg-[#241e38] border border-zinc 800/80 rounded-2xl p-4 flex flex-col justify-between overflow-hidden shadow-xl">
+    <div className="relative w-full h-72 bg-[#241e38] border border-zinc-800/80 rounded-2xl p-4 flex flex-col justify-between overflow-hidden shadow-xl">
       {/**Header Info & Dynamic Legend */}
       <div className="flex justify-between items-start z-10 px-1 pt-1">
         <div>
@@ -164,19 +165,7 @@ export default function ChartBase<T extends Record<string, unknown>>({
                   tick={false}
                 />
               )}
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#181424",
-                  borderColor: "#3f3f46",
-                  borderRadius: "10px",
-                  color: "#f4f4f5",
-                  boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.5)",
-                }}
-                formatter={(value, name) => [
-                  `${symbol}${formatNumber(Number(value) || 0)}`,
-                  String(name).toUpperCase(),
-                ]}
-              />
+              <Tooltip content={<ChartTooltip />} />
               {/**Primary Area Series*/}
               <Area
                 yAxisId="left"
@@ -230,19 +219,7 @@ export default function ChartBase<T extends Record<string, unknown>>({
                   tick={false}
                 />
               )}
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#181424",
-                  borderColor: "#3f3f46",
-                  borderRadius: "8px",
-                  color: "#f4f4f5",
-                  boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.5)",
-                }}
-                formatter={(value, name) => [
-                  `${symbol}${formatNumber(Number(value) || 0)}`,
-                  String(name).toUpperCase(),
-                ]}
-              />
+              <Tooltip content={<ChartTooltip />} />
 
               <Bar
                 yAxisId="left"

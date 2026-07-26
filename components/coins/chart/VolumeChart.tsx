@@ -50,10 +50,10 @@ export default function VolumeChart() {
     <ChartBase<VolumePoint>
       data={volumeDataFormatted}
       type="bar"
-      color="#7c5ca8"
+      color="#298c8c"
       dataKey={primaryCoinId}
       secondaryDataKey={isCompareMode ? secondaryCoinId : undefined}
-      secondaryColor="#c183be"
+      secondaryColor="#800074"
       gradientId="volumeGradient"
       title="Volume 24h"
       value={isCompareMode ? undefined : primaryCoin?.total_volume}
