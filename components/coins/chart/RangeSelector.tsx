@@ -5,12 +5,12 @@ import { chartRanges } from "@/utils/chartRanges";
 
 export default function RangeSelector() {
   const dispatch = useAppDispatch();
-  const { range, coinId } = useAppSelector((state) => state.chart);
+  const { range, selectedCoins } = useAppSelector((state) => state.chart);
   const currency = useAppSelector((state) => state.global.currency);
 
   const handleChange = (newRange: string) => {
     dispatch(setRange(newRange));
-    dispatch(fetchChartData({ coinId, range: newRange, currency }));
+    dispatch(fetchChartData({ selectedCoins, range: newRange, currency }));
   };
 
   return (

@@ -3,20 +3,21 @@
 import { useAppSelector } from "@/state/hooks";
 import ChartBase from "./ChartBase";
 
-type PricePoint = {
+export type PricePoint = {
   time: string;
-  price: number;
+  [coinId: string]: string | number;
 };
 
 export default function PriceChart() {
-  const { priceData, timestamps, loading, coinId } = useAppSelector(
+  const { selectedCoins, coinsData, isCompareMode, loading } = useAppSelector(
     (state) => state.chart,
   );
 
   const { coins } = useAppSelector((state) => state.coins);
-  const coin = coins.find((c) => c.id === coinId);
-  const currentPrice = coin?.current_price;
-  const coinName = coin?.name;
+  const primaryCoinId = selectedCoins[0];
+  const secondaryCoinId = selectedCoins[1];
+  const primaryCoin = coins.find((c) => c.id === primaryCoinId);
+  const secondaryCoin = coins.find((c) => c.id === secondaryCoinId);
 
   if (loading) {
     return (
@@ -26,23 +27,43 @@ export default function PriceChart() {
     );
   }
 
-  const priceDataFormatted: PricePoint[] = timestamps.map((t, i) => ({
-    time: new Date(t).toLocaleTimeString([], {
+  const primaryData = coinsData[primaryCoinId];
+  if (!primaryData || !primaryData.timestamps) return null;
+
+  const priceDataFormatted = primaryData.timestamps.map((t, i) => {
+    const timeLabel = new Date(t).toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
-    }),
-    price: priceData[i],
-  }));
+    });
+
+    const point: PricePoint = { time: timeLabel };
+
+    selectedCoins.forEach((coinId) => {
+      const coinChart = coinsData[coinId];
+      if (coinChart && coinChart.prices[i] !== undefined) {
+        point[coinId] = coinChart.prices[i];
+      }
+    });
+    return point;
+  });
+
+  const title =
+    isCompareMode && secondaryCoin
+      ? `${primaryCoin?.name || primaryCoinId} vs ${secondaryCoin.name}`
+      : primaryCoin?.name || primaryCoinId;
 
   return (
     <ChartBase<PricePoint>
       data={priceDataFormatted}
       type="area"
-      color="#10b981"
-      dataKey="price"
+      color="#be29ec"
+      dataKey={primaryCoinId}
+      secondaryDataKey={isCompareMode ? secondaryCoinId : undefined}
+      secondaryColor="#EFBBFF"
       gradientId="priceGradient"
-      title={coinName}
-      value={currentPrice}
+      title={title}
+      value={isCompareMode ? undefined : primaryCoin?.current_price}
+      isCompareMode={isCompareMode}
     />
   );
 }

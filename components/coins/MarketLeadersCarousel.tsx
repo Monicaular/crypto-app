@@ -4,8 +4,9 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { CoinType } from "@/types/coin";
+import { toggleCoinSelection } from "@/store/chartSlice";
 import { currencySymbols } from "@/utils/currencySymbols";
-import { useAppSelector } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { formatNumber } from "@/utils/formatNumber";
 import {
   Carousel,
@@ -18,6 +19,10 @@ interface MarketLeadersProps {
 }
 
 export default function MarketLeadersCarousel({ coins }: MarketLeadersProps) {
+  const dispatch = useAppDispatch();
+  const { selectedCoins, isCompareMode } = useAppSelector(
+    (state) => state.chart,
+  );
   const currency = useAppSelector((state) => state.global.currency);
   const symbol = currencySymbols[currency] || "";
 
@@ -33,13 +38,33 @@ export default function MarketLeadersCarousel({ coins }: MarketLeadersProps) {
           {coins.map((coin) => {
             const change24h = coin.price_change_percentage_24h_in_currency ?? 0;
             const isPositive = change24h > 0;
+            const isSelected = selectedCoins.includes(coin.id);
+            const selectedIndex = selectedCoins.indexOf(coin.id);
 
             return (
               <CarouselItem
                 key={coin.id}
                 className="basis-full sm:basis-1/3 lg:basis-1/6 pl-3"
               >
-                <div className="bg-[#241e38] flex items-center p-3 gap-3 border border-zinc-800 rounded-xl">
+                <div
+                  onClick={() => dispatch(toggleCoinSelection(coin.id))}
+                  className={`relative flex items-center p-3 gap-3 rounded-xl cursor-pointer transition-all ${
+                    isSelected
+                      ? "bg-purple-600"
+                      : "bg-[#241e38] border border-zinc-800 hover:border-purple-600"
+                  }`}
+                >
+                  {isCompareMode && isSelected && (
+                    <span
+                      className={`absolute -top-2 -right-2 text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center border border-zinc-950 shadow-md ${
+                        selectedIndex === 0
+                          ? "bg-purple-400 text-purple-950"
+                          : "bg-amber-400 text-zinc-950"
+                      }`}
+                    >
+                      {selectedIndex + 1}
+                    </span>
+                  )}
                   <div className="relative w-8 h-8 shrink-0">
                     <Image
                       src={coin.image}
