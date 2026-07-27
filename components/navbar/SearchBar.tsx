@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getSearchResults } from "@/utils/getSearchResults";
 import Link from "next/link";
 import { SearchCoin } from "@/types/searchCoin";
+import { Search } from "lucide-react";
 
 export const SearchBar = () => {
   const [query, setQuery] = useState("");
@@ -29,12 +30,15 @@ export const SearchBar = () => {
 
   return (
     <div className="relative w-full sm:w-64 md:w-80">
+      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+        <Search className="h-5 w-5"/>
+      </div>
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="🔎Search coin..."
-        className="w-full px-3 py-3 text-lg rounded-xl bg-[#18172F] border border-zinc-700/60 placeholder-white text-white focus:outline-white focus:border-emerald-500/80 transition-colors"
+        placeholder="Search coin..."
+        className="w-full px-3 pl-10 py-3 text-lg rounded-xl bg-[#18172F] border border-zinc-700/60 placeholder-white text-white focus:outline-white transition-colors"
         suppressHydrationWarning
       />
 

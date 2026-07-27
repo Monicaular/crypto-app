@@ -16,8 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" style={{ colorScheme: "dark" }}>
-      <body className="min-h-screen bg-[#110e1b] text-white antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
+    <html lang="en" suppressHydrationWarning>
+      <body className="min-h-screen dark:bg-[#110e1b] bg-slate-50 text-white antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
         <StoreProvider>
           <GlobalMarketBar />
           <ThemeProvider>
