@@ -57,7 +57,7 @@ export default function CurrencySelector() {
     <div className="relative" onKeyDown={handleKeyDown} tabIndex={0}>
       <button
         onClick={() => setOpen(!open)}
-        className="px-3 py-1 hover:bg-[#3a3250] rounded text-left"
+        className="px-3 py-3 hover:bg-[#3a3250] rounded-xl bg-[#18172F] border border-zinc-700/60 text-white text-left"
       >
         {current.toUpperCase()}
       </button>
